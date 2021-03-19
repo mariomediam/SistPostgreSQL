@@ -16,6 +16,9 @@ class Question(models.Model):
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
+    def __str__(self):
+        return "Texto: %s, Fecha de publicación: %s" % (self.question_text, self.pub_date)
+
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -43,3 +46,26 @@ class Usuarios(models.Model):
 
     def __str__(self):
        return self.C_Login + " " + self.N_Nombre 
+
+
+class Clientes(models.Model):
+    nombre = models.CharField(max_length=30)
+    direccion = models.CharField(max_length=50)
+    email = models.EmailField()
+    tfno= models.CharField(max_length=9)
+
+class Articulos(models.Model):
+    nombre = models.CharField(max_length=30)
+    seccion = models.CharField(max_length= 20)
+    precio = models.IntegerField()
+
+    def __str__(self):
+        return "Nombre: %s, Sección: %s, Precio: %s" % (self.nombre, self.seccion, self.precio)
+
+class Pedidio(models.Model):
+    numero = models.IntegerField()
+    fecha = models.DateField()
+    entregado = models.BooleanField()
+
+
+
